@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
     #s.screenshot       = ''
 
     s.platform         = :ios, '8.0'
-    s.frameworks       = 'Foundation', 'UIKit'
+    s.frameworks       = 'Foundation', 'UIKit', 'CoreGraphics'
     #s.preserve_paths   = ''
     s.source_files     = 'QuickDropDown/*.{h,m}','QuickDropDown/QuickDropDownDefines/*.{h,m}'
     s.public_header_files = 'QuickDropDown/*.{h}'
