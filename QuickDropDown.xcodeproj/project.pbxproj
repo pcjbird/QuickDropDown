@@ -6,11 +6,31 @@
 	objectVersion = 48;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		8964ABC8200132F5007EACB3 /* QuickDropDown-Universal */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 8964ABC9200132F5007EACB3 /* Build configuration list for PBXAggregateTarget "QuickDropDown-Universal" */;
+			buildPhases = (
+				8964ABCC200132FC007EACB3 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "QuickDropDown-Universal";
+			productName = "QuickDropDown-Universal";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
+		891141FE20012B3A002B8353 /* QuickDropDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 891141F82000FAAC002B8353 /* QuickDropDown.m */; };
 		8994AB982000BCDC00B3EAA0 /* QuickDropDown.h in Headers */ = {isa = PBXBuildFile; fileRef = 8994AB962000BCDC00B3EAA0 /* QuickDropDown.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		891141F82000FAAC002B8353 /* QuickDropDown.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuickDropDown.m; sourceTree = "<group>"; };
+		891141FB20011A2C002B8353 /* QuickDropDownDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuickDropDownDefines.h; sourceTree = "<group>"; };
+		8964ABCE2001341D007EACB3 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		8964ABCF2001341D007EACB3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		8964ABD22001343B007EACB3 /* QuickDropDown.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = QuickDropDown.podspec; sourceTree = "<group>"; };
 		8994AB932000BCDC00B3EAA0 /* QuickDropDown.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QuickDropDown.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8994AB962000BCDC00B3EAA0 /* QuickDropDown.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuickDropDown.h; sourceTree = "<group>"; };
 		8994AB972000BCDC00B3EAA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -27,9 +47,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		891141FA20011A10002B8353 /* QuickDropDownDefines */ = {
+			isa = PBXGroup;
+			children = (
+				891141FB20011A2C002B8353 /* QuickDropDownDefines.h */,
+			);
+			path = QuickDropDownDefines;
+			sourceTree = "<group>";
+		};
+		8964ABCD2001340E007EACB3 /* Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				8964ABCE2001341D007EACB3 /* LICENSE */,
+				8964ABCF2001341D007EACB3 /* README.md */,
+				8964ABD22001343B007EACB3 /* QuickDropDown.podspec */,
+			);
+			name = Metadata;
+			sourceTree = "<group>";
+		};
 		8994AB892000BCDC00B3EAA0 = {
 			isa = PBXGroup;
 			children = (
+				8964ABCD2001340E007EACB3 /* Metadata */,
 				8994AB952000BCDC00B3EAA0 /* QuickDropDown */,
 				8994AB942000BCDC00B3EAA0 /* Products */,
 			);
@@ -46,7 +85,9 @@
 		8994AB952000BCDC00B3EAA0 /* QuickDropDown */ = {
 			isa = PBXGroup;
 			children = (
+				891141FA20011A10002B8353 /* QuickDropDownDefines */,
 				8994AB962000BCDC00B3EAA0 /* QuickDropDown.h */,
+				891141F82000FAAC002B8353 /* QuickDropDown.m */,
 				8994AB972000BCDC00B3EAA0 /* Info.plist */,
 			);
 			path = QuickDropDown;
@@ -93,6 +134,10 @@
 				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Zero Status";
 				TargetAttributes = {
+					8964ABC8200132F5007EACB3 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
 					8994AB922000BCDC00B3EAA0 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
@@ -112,6 +157,7 @@
 			projectRoot = "";
 			targets = (
 				8994AB922000BCDC00B3EAA0 /* QuickDropDown */,
+				8964ABC8200132F5007EACB3 /* QuickDropDown-Universal */,
 			);
 		};
 /* End PBXProject section */
@@ -126,17 +172,50 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		8964ABCC200132FC007EACB3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "FMK_NAME=${PRODUCT_NAME}\n\n# Install dir will be the final output to the framework.\n\n# The following line create it in the root folder of the current project.\n\nINSTALL_DIR=${SRCROOT}/products/${FMK_NAME}.framework\n\n# Working dir will be deleted after the framework creation.\n\nWRK_DIR=build\n\nDEVICE_DIR=${WRK_DIR}/Release-iphoneos/${FMK_NAME}.framework\n\nSIMULATOR_DIR=${WRK_DIR}/Release-iphonesimulator/${FMK_NAME}.framework\n\n# -configuration ${CONFIGURATION}\n\n# Clean and Building both architectures.\n\nxcodebuild -project \"${FMK_NAME}\".xcodeproj -scheme \"${FMK_NAME}\" -configuration \"Release\" -sdk iphoneos clean build\n\nxcodebuild -project \"${FMK_NAME}\".xcodeproj -scheme \"${FMK_NAME}\" -configuration \"Release\" -sdk iphonesimulator clean build\n\n# Cleaning the oldest.\n\nif [ -d \"${INSTALL_DIR}\" ]\n\nthen\n\nrm -rf \"${INSTALL_DIR}\"\n\nfi\n\nmkdir -p \"${INSTALL_DIR}\"\n\ncp -R \"${DEVICE_DIR}/\" \"${INSTALL_DIR}/\"\n\n# Uses the Lipo Tool to merge both binary files (i386 + armv6/armv7) into one Universal final product.\n\nlipo -create \"${DEVICE_DIR}/${FMK_NAME}\" \"${SIMULATOR_DIR}/${FMK_NAME}\" -output \"${INSTALL_DIR}/${FMK_NAME}\"\n\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8994AB8E2000BCDC00B3EAA0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				891141FE20012B3A002B8353 /* QuickDropDown.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		8964ABCA200132F5007EACB3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = QuickDropDown;
+			};
+			name = Debug;
+		};
+		8964ABCB200132F5007EACB3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = QuickDropDown;
+			};
+			name = Release;
+		};
 		8994AB992000BCDC00B3EAA0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -259,6 +338,16 @@
 				INFOPLIST_FILE = QuickDropDown/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fembed-bitcode",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-fembed-bitcode",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lessney.QuickDropDown;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -278,6 +367,16 @@
 				INFOPLIST_FILE = QuickDropDown/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fembed-bitcode",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-fembed-bitcode",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lessney.QuickDropDown;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -288,6 +387,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8964ABC9200132F5007EACB3 /* Build configuration list for PBXAggregateTarget "QuickDropDown-Universal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8964ABCA200132F5007EACB3 /* Debug */,
+				8964ABCB200132F5007EACB3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8994AB8D2000BCDC00B3EAA0 /* Build configuration list for PBXProject "QuickDropDown" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
