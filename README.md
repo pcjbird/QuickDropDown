@@ -7,3 +7,4 @@
 [![GitHub release](https://img.shields.io/github/release/pcjbird/QuickDropDown.svg)](https://github.com/pcjbird/QuickDropDown/releases)
 
 # QuickDropDown
+一款简洁大方的下拉列表框控件。
