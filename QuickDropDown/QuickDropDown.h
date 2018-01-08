@@ -8,6 +8,9 @@
 //  框架名称:QuickDropDown
 //  框架功能:一款简洁大方的下拉列表框控件。
 //  修改记录:
+//     pcjbird    2018-01-08  Version:1.0.1 Build:201801080001
+//                            1.优化，新增注释
+//
 //     pcjbird    2018-01-07  Version:1.0.0 Build:201801070001
 //                            1.首次发布SDK版本
 
@@ -130,12 +133,17 @@ typedef enum{
 
 @optional
 /**
- *  @brief 获取被点击的数据所在数组的下标，用于进行后续的数据传值操作
- 
+ *  @brief 选中下拉项
  *  @param dropDown 当前dropDown
  *  @param indexPath 数据所在数组的位置下标
  */
 - (void)dropDown:(QuickDropDown *)dropDown didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+
+/**
+ *  @brief 取消选择（dismiss）
+ *  @param dropDown 当前dropDown
+ */
+- (void)dropDownDidDismiss:(QuickDropDown *)dropDown;
 
 @end
 
@@ -145,6 +153,11 @@ typedef enum{
  *  @brief QuickDropDown
  */
 @interface QuickDropDown : NSObject
+
+/**
+ *  @brief 是否显示(展开)
+ */
+@property(nonatomic, readonly) BOOL isShown;
 
 /**
  *  @brief 数据源
@@ -193,16 +206,35 @@ typedef enum{
  */
 @property (nonatomic, assign) UITableViewCellSeparatorStyle separatorStyle;
 
+/**
+ *@brief 初始化
+ *@param pattern 样式
+ *@return QuickDropDown
+ */
 - (instancetype)initWithPattern:(QuickDropDownPattern)pattern;
 
--(void) showFromTarget:(UIView*)target;
--(void) showFromTarget:(UIView*)target selectedBlock:(QuickDropDownSelectBlock)selectedBlock dismissBlock:(QuickDropDownDismissBlock)dismissBlock;
+/**
+ *@brief 在target视图处显示，下拉框与target同宽，具体位置根据orientation属性而定，当该属性为QuickDropDownOrientationDown时，dropdown显示在target视图的下方
+ *@param target 目标视图
+ */
+-(void) showAtTargetView:(UIView*)target;
+
+/**
+ *@brief 在target视图处显示，下拉框与target同宽，具体位置根据orientation属性而定，当该属性为QuickDropDownOrientationDown时，dropdown显示在target视图的下方
+ *@param target 目标视图
+ *@param selectedBlock 选中回调
+ *@param dismissBlock dismiss回调
+ */
+-(void) showAtTargetView:(UIView*)target selectedBlock:(QuickDropDownSelectBlock)selectedBlock dismissBlock:(QuickDropDownDismissBlock)dismissBlock;
+
+/**
+ *@brief dismiss
+ */
 -(void) dismiss;
 
-- (void)reloadData;
 /**
- *  @brief 取消第一响应
+ *@brief 重新加载
  */
-- (void)resignDropDownResponder;
+- (void)reloadData;
 
 @end

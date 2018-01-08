@@ -12,6 +12,7 @@
 
 @interface QuickDropDown()<UITableViewDelegate, UITableViewDataSource,UIGestureRecognizerDelegate>
 
+@property(nonatomic, assign) BOOL isShown;
 @property (nonatomic, weak) UIView* target;
 @property (nonatomic, assign) CGRect targetRect;
 
@@ -44,13 +45,6 @@
 -(void)setDatasource:(id<QuickDropDownDataSource>)datasource
 {
     _datasource = datasource;
-    if (self.datasource && [self.datasource respondsToSelector:@selector(itemArrayInDropDown:)]) {
-        self.itemArray = [NSArray arrayWithArray:[self.datasource itemArrayInDropDown:self]];
-    }
-    
-    if (self.datasource && [self.datasource respondsToSelector:@selector(numberOfRowsToDisplayIndropDown:itemArrayCount:)]) {
-        _numberOfRowsToDisplay = [self.datasource numberOfRowsToDisplayIndropDown:self itemArrayCount:self.itemArray.count];
-    }
 }
 
 - (void)setBackgroundColor:(UIColor *)backgroundColor{
@@ -84,6 +78,7 @@
 
 -(void) initVariables
 {
+    _isShown = NO;
     _pattern = QuickDropDownPatternDefault;
     _numberOfRowsToDisplay = 6;
     _heightForRow = 44.f;
@@ -156,13 +151,25 @@
     [self dismiss];
 }
 
--(void) showFromTarget:(UIView*)target
+-(void) showAtTargetView:(UIView*)target
 {
-    [self showFromTarget:target selectedBlock:nil dismissBlock:nil];
+    [self showAtTargetView:target selectedBlock:nil dismissBlock:nil];
 }
 
--(void) showFromTarget:(UIView*)target selectedBlock:(QuickDropDownSelectBlock)selectedBlock dismissBlock:(QuickDropDownDismissBlock)dismissBlock
+-(void) showAtTargetView:(UIView*)target selectedBlock:(QuickDropDownSelectBlock)selectedBlock dismissBlock:(QuickDropDownDismissBlock)dismissBlock
 {
+    if(![target isKindOfClass:[UIView class]])
+    {
+        SDK_LOG(@"请输入需要显示位置的视图(target view)。");
+        return;
+    }
+    if (self.datasource && [self.datasource respondsToSelector:@selector(itemArrayInDropDown:)]) {
+        self.itemArray = [NSArray arrayWithArray:[self.datasource itemArrayInDropDown:self]];
+    }
+    
+    if (self.datasource && [self.datasource respondsToSelector:@selector(numberOfRowsToDisplayIndropDown:itemArrayCount:)]) {
+        _numberOfRowsToDisplay = [self.datasource numberOfRowsToDisplayIndropDown:self itemArrayCount:self.itemArray.count];
+    }
     dispatch_async(dispatch_get_main_queue(), ^{
         _selectBlock = selectedBlock;
         _dismissBlock = dismissBlock;
@@ -212,7 +219,9 @@
     [UIView animateWithDuration:0.15f delay:0.f options:UIViewAnimationOptionAllowUserInteraction &UIViewAnimationOptionCurveEaseOut animations:^{
         self.tableViewContainerView.transform = originTransform;
         
-    } completion:nil];
+    } completion:^(BOOL finished) {
+        _isShown = YES;
+    }];
 }
 
 -(void) dismiss
@@ -231,7 +240,14 @@
         self.tableViewContainerView.layer.shadowRadius = 0.f;
         self.tableViewContainerView.hidden = YES;
         [self.backgroundView removeFromSuperview];
-        if(bCancelAction && self.dismissBlock)self.dismissBlock();
+        _isShown = NO;
+        if(bCancelAction)
+        {
+            if (self.delegate && [self.delegate respondsToSelector:@selector(dropDownDidDismiss:)]) {
+                [self.delegate dropDownDidDismiss:self];
+            }
+            if(self.dismissBlock)self.dismissBlock();
+        }
     }];
 }
 
@@ -255,11 +271,6 @@
     }
     self.tableViewContainerView.layer.shadowPath = [UIBezierPath bezierPathWithRect:_tableViewContainerView.bounds].CGPath;
     self.tableView.frame = CGRectMake(0, 0, CGRectGetWidth(self.tableViewContainerView.frame), CGRectGetHeight(self.tableViewContainerView.frame));
-}
-
--(void)resignDropDownResponder
-{
-    [self dismiss];
 }
 
 #pragma mark - UITableViewDataSource
@@ -309,8 +320,6 @@
         cell.textLabel.numberOfLines = _itemTextNumberOfLines;
         cell.backgroundColor = QDDClear;
         return cell;
-        
-        //自定义cell
     }
     else if (_pattern == QuickDropDownPatternCustom)
     {
@@ -333,8 +342,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
- 
-    
     if (self.delegate && [self.delegate respondsToSelector:@selector(dropDown:didSelectRowAtIndexPath:)]) {
         [self.delegate dropDown:self didSelectRowAtIndexPath:indexPath];
     }

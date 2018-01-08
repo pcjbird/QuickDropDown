@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = "QuickDropDown"
-    s.version          = "1.0.0"
+    s.version          = "1.0.1"
     s.summary          = "一款简洁大方的下拉列表框控件。"
     s.description      = <<-DESC
     一款简洁大方的下拉列表框控件。
