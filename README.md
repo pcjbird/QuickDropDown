@@ -4,7 +4,10 @@
 [![Pod Platform](http://img.shields.io/cocoapods/p/QuickDropDown.svg?style=flat)](http://cocoadocs.org/docsets/QuickDropDown/)
 [![Pod License](http://img.shields.io/cocoapods/l/QuickDropDown.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0.html)
 [![CocoaPods](https://img.shields.io/cocoapods/at/QuickDropDown.svg)](https://github.com/pcjbird/QuickDropDown)
+[![CocoaPods](https://img.shields.io/cocoapods/dt/QuickDropDown.svg)](https://github.com/pcjbird/QuickDropDown)
 [![GitHub release](https://img.shields.io/github/release/pcjbird/QuickDropDown.svg)](https://github.com/pcjbird/QuickDropDown/releases)
+[![GitHub release](https://img.shields.io/github/release-date/pcjbird/QuickDropDown.svg)](https://github.com/pcjbird/QuickDropDown/releases)
+[![Website](https://img.shields.io/website-pcjbird-down-green-red/https/shields.io.svg?label=author)](https://pcjbird.github.io)
 
 # QuickDropDown
 一款简洁大方的下拉列表框控件。
