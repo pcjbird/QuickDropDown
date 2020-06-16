@@ -192,7 +192,7 @@
     }
     else
     {
-        targetRect = self.targetRect;
+        _targetRect = self.targetRect;
     }
     
     if(self.orientation == QuickDropDownOrientationDown)
@@ -220,7 +220,7 @@
         self.tableViewContainerView.transform = originTransform;
         
     } completion:^(BOOL finished) {
-        _isShown = YES;
+        self->_isShown = YES;
     }];
 }
 
@@ -240,7 +240,7 @@
         self.tableViewContainerView.layer.shadowRadius = 0.f;
         self.tableViewContainerView.hidden = YES;
         [self.backgroundView removeFromSuperview];
-        _isShown = NO;
+        self->_isShown = NO;
         if(bCancelAction)
         {
             if (self.delegate && [self.delegate respondsToSelector:@selector(dropDownDidDismiss:)]) {
